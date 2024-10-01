@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Long Binh Ward Map with Multiple Features</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.26/"></script>
+    <style>
+        #map {
+            padding: 0;
+            margin: 0;
+            height: 1000px;
+            width: 100%;
+        }
+    </style>
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/Graphic",
+            "esri/geometry/Polygon",
+            "esri/geometry/Point",
+            "esri/geometry/Polyline",
+            "esri/symbols/SimpleFillSymbol",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/symbols/SimpleLineSymbol",
+            "esri/PopupTemplate",
+            "esri/widgets/BasemapToggle",
+            "esri/widgets/BasemapGallery"
+        ], function (Map, MapView, Graphic, polygon_LongBinh, Point, Polyline, SimpleFillSymbol, SimpleMarkerSymbol, SimpleLineSymbol, PopupTemplate, BasemapToggle, BasemapGallery) {
+            var map = new Map({
+                basemap: "topo-vector"
+            });
+
+            var view = new MapView({
+                container: "map",
+                map: map,
+                center: [106.8317, 10.9674],
+                zoom: 13
+            });
+
+            // Tạo polygon
+            var polygon_LongBinh = new polygon_LongBinh({
+                rings: [
+                    [106.86828, 10.94030],
+                    [106.86828, 10.94098],
+                    [106.86821, 10.94154],
+                    [106.86827, 10.94421],
+                    [106.86840, 10.94517],
+                    [106.86858, 10.94600],
+                    [106.86902, 10.94739],
+                    [106.87051, 10.94953],
+                    [106.87259, 10.95220],
+                    [106.87375, 10.95361],
+                    [106.87601, 10.95604],
+                    [106.88115, 10.96136],
+                    [106.88291, 10.96112],
+                    [106.88545, 10.96067],
+                    [106.88863, 10.96010],
+                    [106.89319, 10.95928],
+                    [106.89750, 10.95851],
+                    [106.89968, 10.95813],
+                    [106.90116, 10.95809],
+                    [106.90205, 10.95814],
+                    [106.90324, 10.95837],
+                    [106.90204, 10.95813],
+                    [106.90244, 10.95821],
+                    [106.90377, 10.95856],
+                    [106.90447, 10.95881],
+                    [106.90495, 10.95903],
+                    [106.90624, 10.95965],
+                    [106.90721, 10.95750],
+                    [106.91094, 10.95935],
+                    [106.90968, 10.96104],
+                    [106.91317, 10.96273],
+                    [106.91470, 10.96323],
+                    [106.91550, 10.96333],
+                    [106.91894, 10.96354],
+                    [106.92324, 10.96382],
+                    [106.92603, 10.96380],
+                    [106.92661, 10.96367],
+                    [106.92739, 10.96346],
+                    [106.92867, 10.96295],
+                    [106.92997, 10.96227],
+                    [106.93646, 10.95885],
+                    [106.93422, 10.95509],
+                    [106.93311, 10.95050],
+                    [106.93006, 10.94212],
+                    [106.93628, 10.94338],
+                    [106.93045, 10.92998],
+                    [106.92959, 10.92829],
+                    [106.92857, 10.92661],
+                    [106.92748, 10.92362],
+                    [106.92310, 10.91919],
+                    [106.92041, 10.91363],
+                    [106.92113, 10.91199],
+                    [106.92118, 10.91047],
+                    [106.92070, 10.90887],
+                    [106.92015, 10.90807],
+                    [106.91826, 10.90677],
+                    [106.91706, 10.90575],
+                    [106.91652, 10.90559],
+                    [106.91596, 10.90576],
+                    [106.91527, 10.90656],
+                    [106.91315, 10.90645],
+                    [106.91173, 10.90655],
+                    [106.91077, 10.90662],
+                    [106.90884, 10.90652],
+                    [106.90834, 10.90649],
+                    [106.90684, 10.90632],
+                    [106.90688, 10.90595],
+                    [106.90307, 10.90401],
+                    [106.90152, 10.90249],
+                    [106.90083, 10.90232],
+                    [106.89920, 10.90242],
+                    [106.89856, 10.90232],
+                    [106.89835, 10.90101],
+                    [106.89828, 10.89886],
+                    [106.89381, 10.89843],
+                    [106.89460, 10.89609],
+                    [106.89268, 10.89520],
+                    [106.89203, 10.89580],
+                    [106.89151, 10.89671],
+                    [106.89128, 10.89797],
+                    [106.89116, 10.90042],
+                    [106.89004, 10.90288],
+                    [106.88968, 10.90399],
+                    [106.89047, 10.90926],
+                    [106.89044, 10.90966],
+                    [106.89021, 10.91028],
+                    [106.88990, 10.91094],
+                    [106.88529, 10.91539],
+                    [106.88490, 10.91590],
+                    [106.88086, 10.92454],
+                    [106.86828, 10.94030]
+                ]
+            });
+
+            var simpleFillSymbol = new SimpleFillSymbol({
+                color: [227, 139, 79, 0.8],
+                outline: { color: [255, 255, 255], width: 1 }
+            });
+
+            var polygonGraphic = new Graphic({
+                geometry: polygon_LongBinh,
+                symbol: simpleFillSymbol,
+                attributes: {
+                    name: "Phường Long Bình",
+                    latitude: "Vĩ độ (latitude): 10.9651° N",
+                    longitude: "Kinh độ (longitude): 106.8920° E",
+                    area: "Diện tích: Phường Long Bình có diện tích khoảng 12,2 km²",
+                    population: "Mật độ dân cư: Phường Long Bình có dân số ước tính khoảng 123,000 người, do đó mật độ dân cư rơi vào khoảng 10,082 người/km²",
+                    areaType: "Loại khu vực: Khu vực đô thị: Long Bình thuộc thành phố Biên Hòa, là khu vực đang phát triển mạnh với các khu công nghiệp và dân cư.",
+                },
+                popupTemplate: {
+                    title: "{name}",
+                    content: [{
+                        type: "text",
+                        text: "{latitude}<br>{longitude}<br>Diện tích: {area}<br>{population}<br>{areaType}"
+                    }]
+                }
+            });
+            
+            // Tạo point cây xăng suối linh
+            var point = new Point({
+                longitude: 106.868694,
+                latitude: 10.941065
+            });
+
+            var markerSymbol = new SimpleMarkerSymbol({
+                color: [0, 122, 255],
+                outline: { color: [255, 255, 255], width: 2 }
+            });
+
+            var pointGraphic_SuoiLinh = new Graphic({
+                geometry: point,
+                symbol: markerSymbol,
+                attributes: {
+                    name: "Trạm Xăng Dầu Suối Linh",
+                    address: "795 Xa Lộ Hà Nội, Phường Long Bình, Thành phố Biên Hòa, Đồng Nai",
+                    capacity: "10,000 lít",
+                    pumps: 5,
+                    fuelType: "Xăng, Dầu diesel",
+                    operatingHours: "6:00 - 22:00"
+                },
+                popupTemplate: {
+                    title: "{name}",
+                    content: [{
+                        type: "text",
+                        text: "Địa chỉ: {address}<br>Sức chứa: {capacity}<br>Số lượng bơm: {pumps}<br>Loại nhiên liệu: {fuelType}<br>Thời gian hoạt động: {operatingHours}"
+                    }]
+                }
+            });
+            // Tạo point cây xăng long bình
+            var point = new Point({
+                longitude: 106.879412,
+                latitude: 10.926929
+            });
+
+            var markerSymbol = new SimpleMarkerSymbol({
+                color: [0, 122, 255],
+                outline: { color: [255, 255, 255], width: 2 }
+            });
+
+            var pointGraphic_LongBinh = new Graphic({
+                geometry: point,
+                symbol: markerSymbol,
+                attributes: {
+                    name: "Trạm Xăng Dầu Long Bình",
+                    address: "Đường số 1, KCN Long Bình, Thành phố Biên Hòa, Đồng Nai",
+                    capacity: "10,000 lít",
+                    pumps: 4,
+                    fuelType: "Xăng, Dầu diesel",
+                    operatingHours: "6:00 - 22:00"
+                },
+                popupTemplate: {
+                    title: "{name}",
+                    content: [{
+                        type: "text",
+                        text: "Địa chỉ: {address}<br>Sức chứa: {capacity}<br>Số lượng bơm: {pumps}<br>Loại nhiên liệu: {fuelType}<br>Thời gian hoạt động: {operatingHours}"
+                    }]
+                }
+            });
+            // Tạo point cây xăng lữ đoàn 22
+            var point = new Point({
+                longitude: 106.878659,
+                latitude: 10.958593
+            });
+
+            var markerSymbol = new SimpleMarkerSymbol({
+                color: [0, 122, 255],
+                outline: { color: [255, 255, 255], width: 2 }
+            });
+
+            var pointGraphic_LD22 = new Graphic({
+                geometry: point,
+                symbol: markerSymbol,
+                attributes: {
+                    name: "Trạm Xăng Dầu Lữ Đoàn 22",
+                    address: "Đường số 1, KCN Long Bình, Thành phố Biên Hòa, Đồng Nai",
+                    capacity: "10,000 lít",
+                    pumps: 4,
+                    fuelType: "Xăng, Dầu diesel",
+                    operatingHours: "6:00 - 22:00"
+                },
+                popupTemplate: {
+                    title: "{name}",
+                    content: [{
+                        type: "text",
+                        text: "Địa chỉ: {address}<br>Sức chứa: {capacity}<br>Số lượng bơm: {pumps}<br>Loại nhiên liệu: {fuelType}<br>Thời gian hoạt động: {operatingHours}"
+                    }]
+                }
+            });
+            // Tạo point cây xăng ICD Tân Cảng Long Bình
+            var point = new Point({
+                longitude: 106.89907142582706,
+                latitude: 10.915654878700657
+            });
+
+            var markerSymbol = new SimpleMarkerSymbol({
+                color: [0, 122, 255],
+                outline: { color: [255, 255, 255], width: 2 }
+            });
+
+            var pointGraphic_Cong11 = new Graphic({
+                geometry: point,
+                symbol: markerSymbol,
+                attributes: {
+                    name: "Trạm Xăng Dầu ICD Tân Cảng Long Bình",
+                    address: "1728 Đường Bùi Văn Hòa, Phường Phước Tân, Long Thành, Đồng Nai, Việt Nam Nai",
+                    capacity: "10,000 lít",
+                    pumps: 4,
+                    fuelType: "Xăng, Dầu diesel",
+                    operatingHours: "6:00 - 22:00"
+                },
+                popupTemplate: {
+                    title: "{name}",
+                    content: [{
+                        type: "text",
+                        text: "Địa chỉ: {address}<br>Sức chứa: {capacity}<br>Số lượng bơm: {pumps}<br>Loại nhiên liệu: {fuelType}<br>Thời gian hoạt động: {operatingHours}"
+                    }]
+                }
+            });
+            // Tạo polyline
+            var polyline = new Polyline({
+                paths: [
+                    [106.8217, 10.9624],
+                    [106.8417, 10.9624]
+                ]
+            });
+
+            var lineSymbol = new SimpleLineSymbol({
+                color: [226, 119, 40],
+                width: 4
+            });
+
+            var polylineGraphic = new Graphic({
+                geometry: polyline,
+                symbol: lineSymbol,
+                attributes: {
+                    name: "Đường chính",
+                    type: "Tuyến đường",
+                    info: "Đường giao thông chính trong phường"
+                },
+                popupTemplate: {
+                    title: "{name}",
+                    content: [{
+                        type: "text",
+                        text: "Loại: {type}<br>Thông tin: {info}<br>"
+                    }]
+                }
+            });
+
+
+            // Thêm graphics vào view
+            view.graphics.addMany([polygonGraphic, pointGraphic_SuoiLinh, pointGraphic_LongBinh, pointGraphic_LD22, pointGraphic_Cong11, polylineGraphic]);
+
+            var basemapToggle = new BasemapToggle({
+                view: view,
+                nextBasemap: "satellite"
+            });
+
+            view.ui.add(basemapToggle, "bottom-right");
+
+            var basemapGallery = new BasemapGallery({
+                view: view,
+                source: {
+                    portal: {
+                        url: "https://www.arcgis.com",
+                        useVectorBasemaps: true
+                    }
+                }
+            });
+
+            view.ui.add(basemapGallery, "top-right");
+        });
+    </script>
+</head>
+
+<body>
+    <div id="map"></div>
+</body>
+
+</html>
